@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Lwx5ynKxsHPqcm70tU0bnMKCLAHCO1CRHHdK8JlV9S4ZgNClwV6u1XUee9J2L3MgITsx2nCYTdtE9gB73UYZlg==",
+  "dgSpecHash": "ZiBexHTTvGWtId6rV/ihwe2/b7mrO0/KMyMsBqITbHSPyMG9hexaG8mNytwsI3aRKuum41GrI+uSi4Cp2mHOGQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\RestAPI\\RestAPI.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\RestAPI\\RestAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",

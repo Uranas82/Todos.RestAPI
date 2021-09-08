@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vIH+uEyN5bpRZElY3oZJ18rp3O48ao3TA7OFLwyBY0/p/y4ZdrJ7jKiI6y7z8lU1xldnEW5mNN8M8dB7V/EZbw==",
+  "dgSpecHash": "onFqLDoOE0FsNWBFNCTOTpEV9ekp5aXYX6paCh3VldxjTrKpm8OVYWjV/YoGMz4UIJPuX+z8XGTWnTKxa9Wjiw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Persistence\\Persistence.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Persistence\\Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",

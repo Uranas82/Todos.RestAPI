@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Persistence\\Persistence.csproj": {}
+    "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Persistence\\Persistence.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Contracts\\Contracts.csproj": {
+    "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Contracts\\Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Contracts\\Contracts.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Contracts\\Contracts.csproj",
         "projectName": "Contracts",
-        "projectPath": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Contracts\\Contracts.csproj",
+        "projectPath": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Contracts\\Contracts.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Contracts\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Contracts\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -58,14 +58,14 @@
         }
       }
     },
-    "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Persistence\\Persistence.csproj": {
+    "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Persistence\\Persistence.csproj",
+        "projectPath": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Persistence\\Persistence.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Persistence\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,8 +82,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Contracts\\Contracts.csproj": {
-                "projectPath": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Contracts\\Contracts.csproj"
+              "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Contracts\\Contracts.csproj": {
+                "projectPath": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Contracts\\Contracts.csproj"
               }
             }
           }

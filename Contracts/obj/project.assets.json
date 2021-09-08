@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Contracts\\Contracts.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Contracts\\Contracts.csproj",
       "projectName": "Contracts",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Contracts\\Contracts.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Contracts\\Contracts.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Contracts\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Contracts\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zPr5e1vLwrsn4ysVmv4qYXrGEF3Dr4mXjJp50Nf0ztxsFwOJ3WMQ/CGZhMep3b6BrcMm1fpIa26zDOIek5kYjQ==",
+  "dgSpecHash": "JlO9YPXekkqaXWJYTYyZCul0Hnsst7aVydKCL3WdoFWHZiAHnPzodXCE+IIQF7kzYRV6R9Vx4zIjtxToXUZMxA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\Desktop\\C#\\RestAPI.TodosApp\\RestAPI.TodosApp\\Contracts\\Contracts.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Desktop\\C#\\Todos.RestAPI\\Contracts\\Contracts.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
