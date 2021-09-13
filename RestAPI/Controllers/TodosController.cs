@@ -3,7 +3,6 @@ using Persistence.Models.ReadModels;
 using RestAPI.Models;
 using RestAPI.Models.RequestModels;
 using RestAPI.Models.ResponseModels;
-using RestAPI.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace RestAPI.Controllers
 {
     [ApiController]
     [Route("todos")]
-    public class TodosController : ControllerBase     
+    public class TodosController : ControllerBase
     {
         private readonly ITodosRepository _todosRepository;
 
@@ -46,7 +45,7 @@ namespace RestAPI.Controllers
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<TodoResponse>> Get(Guid id)
-    {
+        {
             var todoItem = await _todosRepository.GetTodoAsync(id);
 
             if (todoItem is null)
@@ -69,21 +68,21 @@ namespace RestAPI.Controllers
         //}
 
         [HttpPost]
-         public async Task<ActionResult<TodoResponse>> AddTodo( AddTodoRequest request)
-    {
-        var todoItemReadModel = new TodoReadModel
+        public async Task<ActionResult<TodoResponse>> AddTodo(AddTodoRequest request)
         {
-            Id = Guid.NewGuid(),
-            Title = request.Title,
-            Description = request.Description,
-            Difficulty = request.Difficulty,
-            IsDone = false,
-            DateCreated = DateTime.Now
-        };
-        await _todosRepository.SaveOrUpdateAsync(todoItemReadModel);
+            var todoItemReadModel = new TodoReadModel
+            {
+                Id = Guid.NewGuid(),
+                Title = request.Title,
+                Description = request.Description,
+                Difficulty = request.Difficulty,
+                IsDone = false,
+                DateCreated = DateTime.Now
+            };
+            await _todosRepository.SaveOrUpdateAsync(todoItemReadModel);
 
-            return CreatedAtAction(nameof(Get), new {Id = todoItemReadModel.Id }, todoItemReadModel.MapToTodoResponse());
-    }
+            return CreatedAtAction(nameof(Get), new { Id = todoItemReadModel.Id }, todoItemReadModel.MapToTodoResponse());
+        }
 
         //public ActionResult<TodoResponse> AddTodo([FromBody] AddTodoRequest request)
         //{
@@ -97,10 +96,10 @@ namespace RestAPI.Controllers
         //        DateCreated = DateTime.Now
         //    };
 
-    //    _todosRepository.Add(todo);
+        //    _todosRepository.Add(todo);
 
-    //    return CreatedAtAction("GetTodo", new { todoId = todo.Id }, todo.MapToTodoResponse());
-    //}
+        //    return CreatedAtAction("GetTodo", new { todoId = todo.Id }, todo.MapToTodoResponse());
+        //}
 
         [HttpPut]
         [Route("{id}")]
@@ -119,7 +118,7 @@ namespace RestAPI.Controllers
             //    Description = request.Description, 
             //    IsDone = request.IsDone
             //};
-           
+
             todoItem.Title = request.Title;
             todoItem.Description = request.Description;
             todoItem.IsDone = request.IsDone;
@@ -129,24 +128,22 @@ namespace RestAPI.Controllers
             return todoItem.MapToTodoResponse();
         }
 
-        //public ActionResult<TodoResponse> UpdateTodo(Guid todoId, UpdateTodoRequest request)
-        //{
-        //    if (request is null)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPatch]
+        [Route("{id}/toggleStatus")]
+        public async Task<ActionResult<TodoResponse>> UpdateStatus(Guid id)
+        {
+            var todoItem = await _todosRepository.GetTodoAsync(id);
+            if (todoItem is null)
+            {
+                return NotFound($"Todo item with specified id: '{id}' does not exist");
+            }
 
-        //    var todoToUpdate = _todosRepository.Get(todoId);
+            todoItem.IsDone = !todoItem.IsDone;
 
-        //    if (todoToUpdate is null)
-        //    {
-        //        return NotFound();
-        //    }
+            await _todosRepository.SaveOrUpdateAsync(todoItem);
 
-        //    var updatedTodo = _todosRepository.Update(todoId, request.Title, request.Description, request.Difficulty, request.IsDone);
-
-        //    return updatedTodo.MapToTodoResponse();
-        //}
+            return todoItem.MapToTodoResponse();
+        }
 
         [HttpDelete]
         [Route("{id}")]
@@ -170,5 +167,8 @@ namespace RestAPI.Controllers
 
         //    return NoContent();
         //}
+
+     
     }
+      
 }
