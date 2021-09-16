@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Persistence;
 using System.Text.Json.Serialization;
+using RestAPI.Options;
+using RestAPI.SwaggerSettings;
 
 namespace RestAPI
 {
@@ -28,7 +30,8 @@ namespace RestAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // var connectionString = Configuration.GetSection("ConnectionStrings")["CurrentDate"];
+       
+            services.Configure<FavQ>(Configuration.GetSection("FavQ"));
 
             services.AddControllers();
 
@@ -38,13 +41,14 @@ namespace RestAPI
                 options.JsonSerializerOptions.IgnoreNullValues = true;
             });
 
-            services.AddPersistence();           
-            services.AddSwaggerGen(c =>
+            services.AddPersistence(Configuration);           
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestAPI", Version = "v1" });
-
-                services.AddCors();
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "RestAPI", Version = "v1" });
+                options.OperationFilter<AddHeaderParameter>();
+                                
             });
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

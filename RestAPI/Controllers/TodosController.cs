@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Persistence.Models.ReadModels;
-using RestAPI.Models;
 using RestAPI.Models.RequestModels;
 using RestAPI.Models.ResponseModels;
 using System;
@@ -8,6 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Persistence.Repositories;
+using RestAPI.Options;
+using Microsoft.Extensions.Options;
+using RestAPI.Attributes;
+using System.Security.Cryptography;
 
 namespace RestAPI.Controllers
 {
@@ -16,36 +19,56 @@ namespace RestAPI.Controllers
     public class TodosController : ControllerBase
     {
         private readonly ITodosRepository _todosRepository;
+        private readonly FavQ _favQSettings;
 
-        public TodosController(ITodosRepository todosRepository)
+        public TodosController(ITodosRepository todosRepository, IOptions<FavQ> favQSettings)
         {
             _todosRepository = todosRepository;
+            _favQSettings = favQSettings.Value;
+        }
+
+        [HttpPost]
+        [Route("signUp")]
+        public async Task<ActionResult<IEnumerable<TodoResponse>>> CreateApiKey()
+        {
+            var userId = (Guid)HttpContext.Items["userId"];
+                
+            var todos = await _todosRepository.GetTodosAsync();
+
+            return new ActionResult<IEnumerable<TodoResponse>>(todos.Select(todo => todo.MapToTodoResponse()));
+        }
+
+        [HttpPost]
+        [Route("apiKey")]
+        public async Task<ActionResult<IEnumerable<TodoResponse>>> SignUp()
+        {
+            var userId = (Guid)HttpContext.Items["userId"];
+
+            var todos = await _todosRepository.GetTodosAsync();
+
+            return new ActionResult<IEnumerable<TodoResponse>>(todos.Select(todo => todo.MapToTodoResponse()));
         }
 
         [HttpGet]
-        public async Task<IEnumerable<TodoResponse>> GetTodos()
+        [ApiKey]
+        public async Task<ActionResult<IEnumerable<TodoResponse>>> GetTodos()
         {
+            var userId = (Guid)HttpContext.Items["userId"];
+
+            var test = _favQSettings.DefaultEmail;
+
             var todos = await _todosRepository.GetTodosAsync();
-            return todos.Select(todo => todo.MapToTodoResponse());
-            //return todos.Select(todo => new TodoResponse
-            //{
-            //    Id = todo.Id,
-            //    Title = todo.Title,
-            //    Description = todo.Description,
-            //    Difficulty = todo.Difficulty,
-            //    IsDone = todo.IsDone,
-            //    DateCreated = todo.DateCreated }
-            //    });
-        }
-        //public IEnumerable<Todo> GetTodos()
-        //{
-        //    return _todosRepository.GetAll();
-        //}
+
+            return new ActionResult<IEnumerable<TodoResponse>>(todos.Select(todo => todo.MapToTodoResponse()));
+                     
+        }      
 
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<TodoResponse>> Get(Guid id)
         {
+            
+            
             var todoItem = await _todosRepository.GetTodoAsync(id);
 
             if (todoItem is null)
@@ -55,18 +78,7 @@ namespace RestAPI.Controllers
             return Ok(todoItem.MapToTodoResponse());
         }
 
-        //public ActionResult<Todo> GetComment(Guid todoId)
-        //{
-        //    var todo =_todosRepository.Get(todoId);
-
-        //    if (todo == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(todo);
-        //}
-
+    
         [HttpPost]
         public async Task<ActionResult<TodoResponse>> AddTodo(AddTodoRequest request)
         {
@@ -84,23 +96,7 @@ namespace RestAPI.Controllers
             return CreatedAtAction(nameof(Get), new { Id = todoItemReadModel.Id }, todoItemReadModel.MapToTodoResponse());
         }
 
-        //public ActionResult<TodoResponse> AddTodo([FromBody] AddTodoRequest request)
-        //{
-        //    var todo = new Todo
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Title = request.Title,
-        //        Description = request.Description,
-        //        Difficulty = request.Difficulty,
-        //        IsDone = request.IsDone,
-        //        DateCreated = DateTime.Now
-        //    };
-
-        //    _todosRepository.Add(todo);
-
-        //    return CreatedAtAction("GetTodo", new { todoId = todo.Id }, todo.MapToTodoResponse());
-        //}
-
+     
         [HttpPut]
         [Route("{id}")]
         public async Task<ActionResult<TodoResponse>> UpdateTodo(Guid id, UpdateTodoRequest request)
@@ -110,18 +106,10 @@ namespace RestAPI.Controllers
             {
                 return NotFound($"Todo item with specified id: '{id}' does not exist");
             }
-
-            //var todoItemReadModel = new TodoReadModel
-            //{
-            //    Id = id,
-            //    Title = request.Title,
-            //    Description = request.Description, 
-            //    IsDone = request.IsDone
-            //};
-
+                      
             todoItem.Title = request.Title;
             todoItem.Description = request.Description;
-            todoItem.IsDone = request.IsDone;
+            // todoItem.IsDone = request.IsDone;
 
             await _todosRepository.SaveOrUpdateAsync(todoItem);
 
@@ -133,6 +121,7 @@ namespace RestAPI.Controllers
         public async Task<ActionResult<TodoResponse>> UpdateStatus(Guid id)
         {
             var todoItem = await _todosRepository.GetTodoAsync(id);
+
             if (todoItem is null)
             {
                 return NotFound($"Todo item with specified id: '{id}' does not exist");
@@ -150,25 +139,25 @@ namespace RestAPI.Controllers
 
         public async Task<IActionResult> Delete(Guid id)
         {
+            var todoItem = await _todosRepository.GetTodoAsync(id);
+
+            if (todoItem is null)
+            {
+                return NotFound($"Todo item with id: '{id}' does not exist");
+            }
+
             await _todosRepository.DeleteAsync(id);
+
             return NoContent();
         }
 
-        //public IActionResult DeleteTodo(Guid todoId)
-        //{
-        //    var todoToDelete = _todosRepository.Get(todoId);
-
-        //    if (todoToDelete is null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _todosRepository.Delete(todoId);
-
-        //    return NoContent();
-        //}
-
-     
+        private string GenerateApiKey()
+        {
+            var key = new byte[32];
+            using (var generator = RandomNumberGenerator.Create())
+                generator.GetBytes(key);
+            return Convert.ToBase64String(key);
+        }
     }
       
 }

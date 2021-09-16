@@ -2,43 +2,38 @@
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Persistence
 {
     public static class ServiceExtensions
     {
-        public static IServiceCollection AddPersistence(this IServiceCollection services)
+        public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             SqlMapper.AddTypeHandler(new MySqlGuidTypeHandler());
             SqlMapper.RemoveTypeMap(typeof(Guid));
             SqlMapper.RemoveTypeMap(typeof(Guid?));
 
             return services
-                .AddSqlClient()
+                .AddSqlClient(configuration)
                 .AddRepositories();
         }
 
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             return services
+                .AddSingleton<IUsersRepository, UsersRepository>()
                 .AddSingleton<ITodosRepository, TodosRepository>();                
         }
 
-        private static IServiceCollection AddSqlClient(this IServiceCollection services)
+        private static IServiceCollection AddSqlClient(this IServiceCollection services , IConfiguration configuration)
         {
-            var fluentConnectionStringBuilder = new FluentConnectionStringBuilder();
+            // var connectionString = configuration.GetSection("ConnectionStrings")["SqlConnectionString"];
+            // var connectionStringv1 = configuration.GetSection("ConnectionStrings:SqlConnectionString").value;
+            var connectionString = configuration.GetConnectionString("SqlConnectionString");
 
-            var connectionString = fluentConnectionStringBuilder
-                .AddServer("localhost")
-                .AddPort(3306)
-                .AddUserId("root")
-                .AddPassword("Root")
-                .AddDatabase("testas")
-                .BuildConnectionString(true);
+
+            //var fluentConnectionStringBuilder = new FluentConnectionStringBuilder();
 
             return services.AddTransient<ISqlClient>(_ => new SqlClient(connectionString));
         }
